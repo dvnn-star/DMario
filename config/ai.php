@@ -41,4 +41,20 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Context Caching Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Defines the cache duration in seconds for various context builders
+    | to reduce database load and speed up AI response times.
+    |
+    */
+
+    'context_cache' => [
+        'dashboard' => env('AI_CACHE_DASHBOARD', 30),
+        'sales' => env('AI_CACHE_SALES', 60),
+        'reservation' => env('AI_CACHE_RESERVATION', 30),
+    ],
+
 ];

@@ -53,6 +53,9 @@ class AIServiceProvider extends ServiceProvider
         // Bind Tool Registry as singleton
         $this->app->singleton(ToolRegistry::class);
 
+        // Bind Context Aggregator as singleton
+        $this->app->singleton(\App\AI\Context\ContextAggregator::class);
+
         // Auto-resolve AIChatService so it automatically injects all security guards
         $this->app->singleton(AIChatService::class);
     }
@@ -60,7 +63,7 @@ class AIServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(ToolRegistry $registry): void
+    public function boot(ToolRegistry $registry, \App\AI\Context\ContextAggregator $contextAggregator): void
     {
         $this->publishes([
             __DIR__.'/../../config/ai.php' => config_path('ai.php'),
@@ -72,5 +75,13 @@ class AIServiceProvider extends ServiceProvider
         $registry->register(GetTopSellingMenusTool::class);
         $registry->register(GetReservationSummaryTool::class);
         $registry->register(GetRecentOrdersTool::class);
+
+        // Register context builders in the aggregator
+        $contextAggregator->register(\App\AI\Context\DashboardContext::class);
+        $contextAggregator->register(\App\AI\Context\SalesContext::class);
+        $contextAggregator->register(\App\AI\Context\OrderContext::class);
+        $contextAggregator->register(\App\AI\Context\MenuContext::class);
+        $contextAggregator->register(\App\AI\Context\ReservationContext::class);
+        $contextAggregator->register(\App\AI\Context\TableContext::class);
     }
 }
