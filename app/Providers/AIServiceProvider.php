@@ -35,6 +35,9 @@ class AIServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(ReservationRepositoryInterface::class, ReservationRepository::class);
         $this->app->bind(MenuRepositoryInterface::class, MenuRepository::class);
+        $this->app->bind(\App\Repositories\Contracts\SalesRepositoryInterface::class, \App\Repositories\SalesRepository::class);
+        $this->app->bind(\App\Repositories\Contracts\TableRepositoryInterface::class, \App\Repositories\TableRepository::class);
+        $this->app->bind(\App\Repositories\Contracts\DashboardRepositoryInterface::class, \App\Repositories\DashboardRepository::class);
 
         // Bind AI Provider
         $this->app->singleton(AIProvider::class, function ($app) {
