@@ -56,6 +56,9 @@ class AIServiceProvider extends ServiceProvider
         // Bind Context Aggregator as singleton
         $this->app->singleton(\App\AI\Context\ContextAggregator::class);
 
+        // Bind Prompt Resolver as singleton
+        $this->app->singleton(\App\AI\Prompts\Resolver\PromptResolver::class);
+
         // Auto-resolve AIChatService so it automatically injects all security guards
         $this->app->singleton(AIChatService::class);
     }
@@ -63,7 +66,11 @@ class AIServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(ToolRegistry $registry, \App\AI\Context\ContextAggregator $contextAggregator): void
+    public function boot(
+        ToolRegistry $registry, 
+        \App\AI\Context\ContextAggregator $contextAggregator,
+        \App\AI\Prompts\Resolver\PromptResolver $promptResolver
+    ): void
     {
         $this->publishes([
             __DIR__.'/../../config/ai.php' => config_path('ai.php'),
@@ -83,5 +90,15 @@ class AIServiceProvider extends ServiceProvider
         $contextAggregator->register(\App\AI\Context\MenuContext::class);
         $contextAggregator->register(\App\AI\Context\ReservationContext::class);
         $contextAggregator->register(\App\AI\Context\TableContext::class);
+
+        // Register prompt builders in the resolver
+        $promptResolver->register(\App\AI\Prompts\Builders\DashboardPrompt::class);
+        $promptResolver->register(\App\AI\Prompts\Builders\SalesAnalysisPrompt::class);
+        $promptResolver->register(\App\AI\Prompts\Builders\OrderInsightPrompt::class);
+        $promptResolver->register(\App\AI\Prompts\Builders\MenuAnalysisPrompt::class);
+        $promptResolver->register(\App\AI\Prompts\Builders\ReservationPrompt::class);
+        
+        // Register the fallback
+        $promptResolver->registerDefault(\App\AI\Prompts\Builders\GeneralPrompt::class);
     }
 }
