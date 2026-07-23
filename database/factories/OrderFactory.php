@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\table;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class OrderFactory extends Factory
 {
+    protected $model = \App\Models\order::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +20,10 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'table_id' => table::factory(),
+            'total_price' => $this->faker->numberBetween(20000, 200000),
+            'status' => 'pending',
+            'payment_method' => $this->faker->randomElement(['cash', 'qris', 'transfer']),
         ];
     }
 }

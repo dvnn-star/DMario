@@ -21,9 +21,9 @@ class OrdersTable
         return $table
             ->columns([
                 TextColumn::make('id')->sortable()->searchable(),
-                
+
                 // Menampilkan nama/nomor Meja dari relasi table() di Model Order
-                TextColumn::make('table.table_number') 
+                TextColumn::make('table.table_number')
                     ->label('Meja')
                     ->default('Tanpa Meja')
                     ->sortable(),

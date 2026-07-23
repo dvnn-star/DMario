@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 return new class extends Migration
@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         // 1. Buat kolom HANYA JIKA belum ada di tabel
-        if (!Schema::hasColumn('categories', 'slug')) {
+        if (! Schema::hasColumn('categories', 'slug')) {
             Schema::table('categories', function (Blueprint $table) {
                 $table->string('slug')->nullable()->after('name');
             });
@@ -23,7 +23,7 @@ return new class extends Migration
             DB::table('categories')
                 ->where('id', $category->id)
                 ->update([
-                    'slug' => Str::slug($category->name) . '-' . $category->id
+                    'slug' => Str::slug($category->name).'-'.$category->id,
                 ]);
         }
 

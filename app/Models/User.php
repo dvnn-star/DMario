@@ -25,7 +25,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role'
+        'role',
     ];
 
     /**
@@ -53,6 +53,7 @@ class User extends Authenticatable implements FilamentUser
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
     public function canAccessPanel(Panel $panel): bool
     {
         // Hanya user dengan role admin/staff/kasir yang boleh masuk panel admin

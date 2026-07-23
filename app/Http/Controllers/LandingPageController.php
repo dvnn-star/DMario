@@ -25,18 +25,18 @@ class LandingPageController extends Controller
             ->get()
             ->map(function ($item) {
                 return [
-                    'id'          => $item->id,
-                    'title'       => strtoupper($item->name),
-                    'tag'         => 'Recommended',
+                    'id' => $item->id,
+                    'title' => strtoupper($item->name),
+                    'tag' => 'Recommended',
                     'description' => $item->description,
 
                     // Format harga: misal 185000 -> 185K, jika di bawah 1000 -> Rp 500
-                    'price'       => ($item->price >= 1000)
-                        ? number_format($item->price / 1000, 0) . 'K'
-                        : 'Rp ' . number_format($item->price, 0, ',', '.'),
+                    'price' => ($item->price >= 1000)
+                        ? number_format($item->price / 1000, 0).'K'
+                        : 'Rp '.number_format($item->price, 0, ',', '.'),
 
                     // Generates URL lengkap dari storage, atau fallback ke default image
-                    'image'       => $item->image_path
+                    'image' => $item->image_path
                         ? Storage::url($item->image_path)
                         : 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2069',
                 ];
@@ -46,7 +46,6 @@ class LandingPageController extends Controller
             'bestSellers' => $bestSellers,
         ]);
     }
-
 
     public function menu()
     {
@@ -59,18 +58,21 @@ class LandingPageController extends Controller
             'menuItems' => $menuItems,
         ]);
     }
+
     public function reservation(table $table)
     {
         $tables = $table::all();
-        
+
         return Inertia::render('landingpage/reservation', [
-            'Tables' => $tables
+            'Tables' => $tables,
         ]);
     }
+
     public function gallery()
     {
         return Inertia::render('landingpage/gallery');
     }
+
     public function ShowMenuQr(Request $request, string $identifier)
     {
         // 1. Cari meja berdasarkan UUID (Gunakan Table kapital)
@@ -78,9 +80,9 @@ class LandingPageController extends Controller
 
         // 2. WAJIB: Simpan meja ke Session Server demi keamanan checkout nanti
         $request->session()->put('table', [
-            'id'           => $table->id,
+            'id' => $table->id,
             'table_number' => $table->table_number,
-            'identifier'   => $table->identifier,
+            'identifier' => $table->identifier,
         ]);
 
         // 3. Ambil menu + kategori (Tambahkan filter stok/ketersediaan jika ada)
@@ -90,13 +92,14 @@ class LandingPageController extends Controller
 
         // 4. Render tampilan Inertia
         return Inertia::render('MenuQr/ShowMenu', [
-            'table'     => [
-                'id'           => $table->id,
+            'table' => [
+                'id' => $table->id,
                 'table_number' => $table->table_number,
             ],
             'menuItems' => $menuItems,
         ]);
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -112,21 +115,21 @@ class LandingPageController extends Controller
     public function store(Request $request)
     {
         // 1. Gabungkan format waktu
-        $datetime = $request->date . ' ' . $request->time;
+        $datetime = $request->date.' '.$request->time;
 
         // 2. Jalankan Validasi
         // Jika gagal, Laravel otomatis me-throw ValidationException dan
         // me-redirect kembali sambil membawa array errors ke frontend (Vue/React).
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'guests'   => 'required|integer|min:1',
-            'date'     => [
+            'name' => 'required|string|max:255',
+            'guests' => 'required|integer|min:1',
+            'date' => [
                 'required',
                 'date',
                 'after_or_equal:today',
-                'before_or_equal:' . now()->addDays(7)->format('Y-m-d'),
+                'before_or_equal:'.now()->addDays(7)->format('Y-m-d'),
             ],
-            'time'     => 'required',
+            'time' => 'required',
             'table_id' => [
                 'required',
                 'exists:tables,id',
@@ -145,9 +148,9 @@ class LandingPageController extends Controller
 
         // 3. Simpan
         reservation::create([
-            'customer_name'    => $request->name,
+            'customer_name' => $request->name,
             'reservation_time' => $datetime,
-            'table_id'         => $request->table_id,
+            'table_id' => $request->table_id,
             'number_of_guests' => $request->guests,
         ]);
 
@@ -156,6 +159,7 @@ class LandingPageController extends Controller
         // Alternatif jika ingin dialihkan ke halaman lain:
         // return redirect()->route('reservation.index')->with('success', '...');
     }
+
     /**
      * Display the specified resource.
      */

@@ -20,10 +20,10 @@ class CheckoutController extends Controller
 
         // 2. Validasi Payload dari Frontend Vue
         $validated = $request->validate([
-            'items'               => 'required|array|min:1',
-            'items.*.id'          => 'required|exists:menu_items,id',
-            'items.*.quantity'    => 'required|integer|min:1',
-            'payment_method'      => 'required|in:cash,qris,transfer',
+            'items' => 'required|array|min:1',
+            'items.*.id' => 'required|exists:menu_items,id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'payment_method' => 'required|in:cash,qris,transfer',
         ]);
 
         // 3. Eksekusi Simpan dengan DB Transaction (Atomis)
@@ -40,17 +40,17 @@ class CheckoutController extends Controller
 
                     $orderDetailsData[] = [
                         'menu_item_id' => $menuItem->id,
-                        'quantity'     => $item['quantity'],
-                        'price'        => $menuItem->price,
+                        'quantity' => $item['quantity'],
+                        'price' => $menuItem->price,
                     ];
                 }
 
                 // A. Buat Header Pesanan
                 $order = order::create([
-                    'table_id'       => $tableSession['id'],
-                    'status'         => 'pending',
+                    'table_id' => $tableSession['id'],
+                    'status' => 'pending',
                     'payment_method' => $validated['payment_method'],
-                    'total_price'    => $totalPrice,
+                    'total_price' => $totalPrice,
                 ]);
 
                 // B. Buat Detail Pesanan
@@ -59,12 +59,12 @@ class CheckoutController extends Controller
                 return $order;
             });
 
-           session(['active_order_id' => $order->id]);
+            session(['active_order_id' => $order->id]);
+
             return redirect()->route('order.status');
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Gagal memproses pesanan: ' . $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => 'Gagal memproses pesanan: '.$e->getMessage()]);
         }
     }
-    
 }

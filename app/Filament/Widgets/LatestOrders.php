@@ -12,11 +12,13 @@ use Illuminate\Database\Eloquent\Builder;
 class LatestOrders extends TableWidget
 {
     protected static ?int $sort = 3;
-    protected int | string | array $columnSpan = 'full';
+
+    protected int|string|array $columnSpan = 'full';
+
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => order::query())
+            ->query(fn (): Builder => order::query())
             ->columns([
                 TextColumn::make('table.id')
                     ->searchable(),

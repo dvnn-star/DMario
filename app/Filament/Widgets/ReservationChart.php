@@ -8,12 +8,14 @@ use Illuminate\Support\Carbon;
 
 class ReservationChart extends ChartWidget
 {
-    protected  ?string $heading = 'Grafik Pendapatan';
+    protected ?string $heading = 'Grafik Pendapatan';
 
     // Auto-refresh setiap 15 detik
     protected ?string $pollingInterval = '15s';
+
     protected static ?int $sort = 2;
-    protected int | string | array $columnSpan = 1; // Atau 2 jika grid panel 3 kolom
+
+    protected int|string|array $columnSpan = 1; // Atau 2 jika grid panel 3 kolom
 
     // Filter default saat halaman pertama kali dimuat
     public ?string $filter = 'month';
@@ -36,7 +38,7 @@ class ReservationChart extends ChartWidget
 
         match ($activeFilter) {
             'today' => $this->getTodayData($data, $labels),
-            'week'  => $this->getWeekData($data, $labels),
+            'week' => $this->getWeekData($data, $labels),
             'month' => $this->getMonthData($data, $labels),
         };
 

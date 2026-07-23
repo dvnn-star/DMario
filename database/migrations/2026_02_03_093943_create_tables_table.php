@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('table_number');
             $table->uuid('identifier')->unique();
             $table->string('qr_code_path')->unique();
-            $table->enum('status',['available','occupied','reserved'])->default('available');
+            $table->enum('status', ['available', 'occupied', 'reserved'])->default('available');
             $table->timestamps();
         });
     }

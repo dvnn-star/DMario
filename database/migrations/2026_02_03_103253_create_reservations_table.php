@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('table_id')->constrained('tables');
             $table->dateTime('reservation_time');
             $table->integer('number_of_guests');
-            $table->enum('status',['pending','confirmed','cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }

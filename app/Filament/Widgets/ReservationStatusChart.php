@@ -8,8 +8,11 @@ use Filament\Widgets\ChartWidget;
 class ReservationStatusChart extends ChartWidget
 {
     protected ?string $heading = 'Status Reservasi Bulan Ini';
+
     protected static ?int $sort = 2;
-    protected int | string | array $columnSpan = 1;
+
+    protected int|string|array $columnSpan = 1;
+
     // Auto-refresh setiap 20 detik
     protected ?string $pollingInterval = '20s';
 

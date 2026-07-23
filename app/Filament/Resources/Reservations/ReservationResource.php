@@ -48,7 +48,6 @@ class ReservationResource extends Resource
         ];
     }
 
-
     // Tambahkan di dalam class ReservationResource
     public static function getEloquentQuery(): Builder
     {

@@ -15,8 +15,7 @@ class CategoryForm
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
-                ->afterStateUpdated(fn (string $operation, $state, $set) => 
-                    $operation === 'create' ? $set('slug', Str::slug($state)) : null
+                ->afterStateUpdated(fn (string $operation, $state, $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null
                 ),
 
         ]);

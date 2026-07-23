@@ -15,8 +15,9 @@ class MenuController extends Controller
     public function index()
     {
         $MenuItems = MenuItem::with('category')->get();
-        return Inertia::render('Dashboard/Stock',[
-            'MenuItems' => $MenuItems
+
+        return Inertia::render('Dashboard/Stock', [
+            'MenuItems' => $MenuItems,
         ]);
     }
 

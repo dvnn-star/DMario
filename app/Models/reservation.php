@@ -21,6 +21,7 @@ class reservation extends Model
         'number_of_guests',
         'special_requests',
     ];
+
     public function table(): BelongsTo
     {
         return $this->belongsTo(\App\Models\table::class, 'table_id');

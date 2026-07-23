@@ -2,25 +2,20 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Widgets\CustomAccountWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
-use Filament\Notifications\Notification;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\View\PanelsRenderHook;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -62,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Hapus Cache')
                     ->icon('heroicon-o-trash')
                     ->color('warning')
-                    ->url(fn() => route('filament.admin.clear-cache')),
+                    ->url(fn () => route('filament.admin.clear-cache')),
             ]);
     }
 }

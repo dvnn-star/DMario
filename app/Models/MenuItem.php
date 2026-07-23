@@ -10,6 +10,7 @@ class MenuItem extends Model
 {
     /** @use HasFactory<\Database\Factories\MenuItemFactory> */
     use HasFactory;
+
     protected $fillable = [
         'image_path',
         'name',
@@ -19,8 +20,20 @@ class MenuItem extends Model
         'is_available',
         'is_recommended',
     ];
+
     public function Category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            \Illuminate\Support\Facades\Cache::forget('menu_items_with_categories');
+        });
+
+        static::deleted(function () {
+            \Illuminate\Support\Facades\Cache::forget('menu_items_with_categories');
+        });
     }
 }

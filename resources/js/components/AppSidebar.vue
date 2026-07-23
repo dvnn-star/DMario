@@ -13,40 +13,22 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import AppLogo from './AppLogo.vue';
-import { route } from 'ziggy-js';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: '/admin',
         icon: LayoutGrid,
     },
-    {
-        title: 'Menu',
-        href: route('StockMenu'),
-        icon:Utensils,
-    }
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Github Repo',
-        href: 'https://github.com',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation', 
-        href: '',
-        icon: BookOpen,
-    },
-    {
-        title:'Landing Page',
-        href: route('home'),
-        icon:ExternalLink,
-
+        title: 'Landing Page',
+        href: '/',
+        icon: ExternalLink,
     }
 ];
 </script>
@@ -57,7 +39,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                        <Link href="/admin">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>

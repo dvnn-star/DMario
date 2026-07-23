@@ -12,7 +12,7 @@ class TableSeeder extends Seeder
     public function run(): void
     {
         // 1. Siapkan direktori storage 'qrcodes'
-        if (!Storage::disk('public')->exists('qrcodes')) {
+        if (! Storage::disk('public')->exists('qrcodes')) {
             Storage::disk('public')->makeDirectory('qrcodes');
         }
 
@@ -27,13 +27,13 @@ class TableSeeder extends Seeder
                 ['table_number' => $i],
                 [
                     'qr_code_path' => $qrPath,
-                    'status'       => 'available',
+                    'status' => 'available',
                 ]
             );
 
             // 3. Ambil identifier dari Model
-            $urlToEncode = config('app.url') . "/menu/table/" . $table->identifier;
-            $apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($urlToEncode);
+            $urlToEncode = config('app.url').'/menu/table/'.$table->identifier;
+            $apiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='.urlencode($urlToEncode);
 
             try {
                 // 4. Unduh QR Code dari API dan simpan ke Storage
@@ -45,7 +45,7 @@ class TableSeeder extends Seeder
                     $this->command->error("Gagal mengunduh QR Meja {$i}: API Error.");
                 }
             } catch (\Exception $e) {
-                $this->command->error("Gagal koneksi saat unduh QR Meja {$i}: " . $e->getMessage());
+                $this->command->error("Gagal koneksi saat unduh QR Meja {$i}: ".$e->getMessage());
             }
         }
 

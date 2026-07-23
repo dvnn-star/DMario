@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Models\Table;
@@ -12,16 +13,16 @@ class TableFactory extends Factory
     {
         return [
             // Harus integer
-            'table_number' => $this->faker->unique()->numberBetween(1, 100), 
-            
+            'table_number' => $this->faker->unique()->numberBetween(1, 100),
+
             // UUID char(36) unik
-            'identifier' => $this->faker->unique()->uuid(), 
-            
+            'identifier' => $this->faker->unique()->uuid(),
+
             // Path QR wajib diisi & unik
-            'qr_code_path' => 'qrcodes/table-' . $this->faker->unique()->numberBetween(1, 100) . '.png', 
-            
+            'qr_code_path' => 'qrcodes/table-'.$this->faker->unique()->numberBetween(1, 100).'.png',
+
             // Enum
-            'status' => 'available', 
+            'status' => 'available',
         ];
     }
 }

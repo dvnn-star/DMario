@@ -9,9 +9,12 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
-    protected  ?string $pollingInterval = '10s';
+    protected ?string $pollingInterval = '10s';
+
     protected static ?int $sort = 1;
-    protected int | string | array $columnSpan = 'full';
+
+    protected int|string|array $columnSpan = 'full';
+
     protected function getStats(): array
     {
         return [
@@ -33,7 +36,7 @@ class StatsOverview extends BaseWidget
 
             Stat::make(
                 'Total Pendapatan',
-                'Rp ' . number_format(order::where('status', 'completed')->sum('total_price'), 0, ',', '.')
+                'Rp '.number_format(order::where('status', 'completed')->sum('total_price'), 0, ',', '.')
             )
                 ->description('Dari pesanan selesai/lunas')
                 ->descriptionIcon('heroicon-m-banknotes')

@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('table_id')->constrained('tables');
             $table->decimal('total_price', 12, 3);
-            $table->enum('status',['pending','processing','completed','cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
             $table->string('payment_method')->nullable();
             $table->timestamps();
         });
     }
-    
-    
+
     /**
      * Reverse the migrations.
      */
