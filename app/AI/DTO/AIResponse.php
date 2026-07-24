@@ -14,14 +14,16 @@ class AIResponse
      * @param int|null $completionTokens Number of tokens in the completion.
      * @param int|null $totalTokens Total tokens used.
      * @param array $rawResponse The raw response from the provider, useful for debugging or provider-specific data.
+     * @param array $toolCalls The tool calls requested by the AI.
      */
     public function __construct(
-        public readonly string $content,
+        public readonly ?string $content,
         public readonly string $model,
         public readonly ?int $promptTokens = null,
         public readonly ?int $completionTokens = null,
         public readonly ?int $totalTokens = null,
-        public readonly array $rawResponse = []
+        public readonly array $rawResponse = [],
+        public readonly array $toolCalls = []
     ) {
     }
 }

@@ -38,7 +38,7 @@ class GetTopSellingMenusTool implements AITool
     public function execute(array $parameters): mixed
     {
         $limit = $parameters['limit'] ?? 5;
-        $items = $this->repository->getTopSelling($limit);
+        $items = $this->repository->getTopSellingMenus($limit);
         
         return [
             'top_menus' => $items,

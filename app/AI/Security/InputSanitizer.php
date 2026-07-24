@@ -15,13 +15,21 @@ class InputSanitizer
      */
     public function sanitize(string $input): string
     {
-        // Remove null bytes and basic control characters
-        $sanitized = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $input);
+        // 1. Unicode Normalization (prevents zero-width space bypasses)
+        if (class_exists('Normalizer')) {
+            $input = \Normalizer::normalize($input, \Normalizer::FORM_C) ?: $input;
+        }
+
+        // 2. Strip HTML Tags to prevent XSS (Code/HTML/Markdown Injection)
+        $input = strip_tags($input);
+
+        // 3. Remove null bytes, basic control characters, and zero-width spaces (\x{200B})
+        $sanitized = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x{200B}]/u', '', $input);
         
-        // Trim excess whitespace
+        // 4. Trim excess whitespace
         $sanitized = trim($sanitized);
         
-        // Limit maximum raw length to prevent buffer/payload exhaustion before token counting
+        // 5. Limit maximum raw length to prevent buffer/payload exhaustion before token counting
         // 10,000 characters is a reasonable upper limit for a single chat message
         if (mb_strlen($sanitized) > 10000) {
             $sanitized = mb_substr($sanitized, 0, 10000);

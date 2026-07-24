@@ -57,4 +57,80 @@ return [
         'reservation' => env('AI_CACHE_RESERVATION', 30),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Memory Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Defines settings for the AI Conversation Memory Layer.
+    |
+    */
+
+    'memory' => [
+        'max_history' => env('AI_MAX_HISTORY', 10),
+        'enable_cache' => env('AI_ENABLE_CACHE', true),
+        'default_cache_ttl' => env('AI_DEFAULT_CACHE', 3600), // 1 hour
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Streaming Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Defines settings for the real-time streaming response pipeline.
+    |
+    */
+
+    'streaming' => [
+        'buffer_flush_interval_ms' => env('AI_STREAM_BUFFER_MS', 50),
+        'buffer_max_chars' => env('AI_STREAM_BUFFER_CHARS', 20),
+        'stream_timeout' => env('AI_STREAM_TIMEOUT', 60),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Observability Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Controls the AI tracing, logging, and debugging subsystem.
+    |
+    */
+
+    'observability' => [
+        'enabled' => env('AI_OBSERVABILITY', true),
+        'debug' => env('AI_DEBUG', false),
+        'log_channel' => env('AI_LOG_CHANNEL', 'ai'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pricing Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Per-model pricing in USD per 1 million tokens.
+    | Used by TokenCostCalculator for cost estimation.
+    |
+    */
+
+    'pricing' => [
+        'groq' => [
+            'llama3-8b-8192' => ['prompt' => 0.05, 'completion' => 0.08],
+            'llama3-70b-8192' => ['prompt' => 0.59, 'completion' => 0.79],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Evaluation & Testing Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Controls the asynchronous AI evaluation pipeline.
+    |
+    */
+
+    'evaluation' => [
+        'enabled' => env('AI_EVALUATION', true),
+        'log_channel' => env('AI_EVAL_LOG_CHANNEL', 'ai_eval'),
+    ],
+
 ];

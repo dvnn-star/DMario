@@ -11,6 +11,7 @@
 **D'Mario Sunset Resto** is a modern, high-performance QR-based digital restaurant menu, ordering, and table reservation web application. It combines a sophisticated monolithic hybrid architecture using **Laravel 12** and **Inertia.js** with **Vue 3**. For seamless back-office operations and robust management, it integrates the powerful **Filament v5 Admin Panel**.
 
 ### ✨ Key Features
+- **AI Business Intelligence Agent**: A highly advanced, context-aware LLM Copilot integrated directly into the core data layer. It uses native tool calling (ReAct loop) to run complex analytics on revenue, menu performance, and orders in real-time. Features fluid streaming and a secure, OWASP-compliant architecture. [Read the full AI Services Documentation here](AI_SERVICES.md).
 - **QR-Based Digital Menu & Ordering**: Scan a QR code to bind dynamically to a table. Features real-time order status tracking with strict session isolation.
 - **Advanced Table Reservation System**: Interactive layout selection and an hourly time-slot picker (10:00 - 22:00 WIB). Prevents double-booking natively and bridges directly to WhatsApp for manual confirmation.
 - **Back-Office Admin Panel**: Fully featured role-based Filament dashboard to manage categories, menus, tables, orders, and reservations seamlessly.

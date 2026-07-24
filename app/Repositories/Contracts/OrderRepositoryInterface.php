@@ -20,4 +20,13 @@ interface OrderRepositoryInterface
     public function getCompletedOrders(int $limit = 10): array;
 
     public function getOrderCountToday(): int;
+    public function getOrderCountThisMonth(): int;
+    public function getTotalOrderCount(): int;
+    public function updateOrderStatus(int $orderId, string $status): bool;
+    
+    /**
+     * Get order trends aggregated by hour or day.
+     * @param string $groupBy 'hour' or 'day'
+     */
+    public function getOrderTrends(string $groupBy = 'hour', string $period = 'today'): array;
 }

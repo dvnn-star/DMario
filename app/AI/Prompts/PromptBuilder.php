@@ -42,6 +42,32 @@ class PromptBuilder
     }
 
     /**
+     * Add an assistant message with requested tool calls.
+     */
+    public function addAssistantToolCalls(array $toolCalls): self
+    {
+        $this->messages[] = new ChatMessage(
+            role: 'assistant',
+            toolCalls: $toolCalls
+        );
+        return $this;
+    }
+
+    /**
+     * Add a tool response message.
+     */
+    public function addToolResponse(string $toolCallId, string $toolName, string $content): self
+    {
+        $this->messages[] = new ChatMessage(
+            role: 'tool',
+            content: $content,
+            toolCallId: $toolCallId,
+            name: $toolName
+        );
+        return $this;
+    }
+
+    /**
      * Add raw ChatMessage objects directly.
      *
      * @param ChatMessage[] $messages

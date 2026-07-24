@@ -56,4 +56,47 @@ class ReservationRepository implements ReservationRepositoryInterface
             );
         })->toArray();
     }
+
+    public function getStatsByPeriod(string $period = 'today'): array
+    {
+        $query = reservation::whereIn('status', ['pending', 'confirmed']);
+
+        switch ($period) {
+            case 'today':
+                $query->whereDate('reservation_time', Carbon::today());
+                break;
+            case 'yesterday':
+                $query->whereDate('reservation_time', Carbon::yesterday());
+                break;
+            case 'this_week':
+                $query->whereBetween('reservation_time', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+                break;
+            case 'this_month':
+                $query->whereMonth('reservation_time', Carbon::now()->month)
+                      ->whereYear('reservation_time', Carbon::now()->year);
+                break;
+            case 'last_month':
+                $query->whereMonth('reservation_time', Carbon::now()->subMonth()->month)
+                      ->whereYear('reservation_time', Carbon::now()->subMonth()->year);
+                break;
+            case 'all_time':
+            default:
+                break;
+        }
+
+        return [
+            'total_reservations' => $query->count(),
+            'period' => $period,
+        ];
+    }
+
+    public function getPendingReservations(): array
+    {
+        $reservations = reservation::with('table')
+            ->where('status', 'pending')
+            ->orderBy('reservation_time', 'asc')
+            ->get();
+
+        return $this->mapToDTOs($reservations);
+    }
 }
