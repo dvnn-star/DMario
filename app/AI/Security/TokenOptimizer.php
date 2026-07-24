@@ -20,11 +20,20 @@ class TokenOptimizer
         $optimizedMessages = [];
 
         foreach ($messages as $message) {
-            // Compress whitespace to save tokens
-            $content = preg_replace('/\s+/', ' ', $message->content);
-            $content = trim($content);
+            // Compress whitespace to save tokens (only if content is not null)
+            $content = $message->content;
+            if ($content !== null) {
+                $content = preg_replace('/\s+/', ' ', $content);
+                $content = trim($content);
+            }
 
-            $optimizedMessages[] = new ChatMessage($message->role, $content);
+            $optimizedMessages[] = new ChatMessage(
+                $message->role,
+                $content,
+                $message->toolCalls,
+                $message->toolCallId,
+                $message->name
+            );
         }
 
         return $optimizedMessages;

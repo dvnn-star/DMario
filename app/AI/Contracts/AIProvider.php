@@ -5,6 +5,7 @@ namespace App\AI\Contracts;
 use App\AI\DTO\AIResponse;
 use App\AI\DTO\ChatMessage;
 use App\AI\Exceptions\AIException;
+use App\AI\Streaming\StreamResponse;
 
 /**
  * Interface that all AI providers must implement.
@@ -13,7 +14,7 @@ use App\AI\Exceptions\AIException;
 interface AIProvider
 {
     /**
-     * Send a sequence of messages to the AI provider.
+     * Send a sequence of messages to the AI provider (synchronous).
      *
      * @param ChatMessage[] $messages An array of ChatMessage objects representing the conversation history.
      * @param array $options Optional provider-specific parameters (e.g., temperature, max_tokens).
@@ -21,6 +22,16 @@ interface AIProvider
      * @throws AIException If the request fails or is rate-limited.
      */
     public function sendMessage(array $messages, array $options = []): AIResponse;
+
+    /**
+     * Stream a sequence of messages to the AI provider (chunked).
+     *
+     * @param ChatMessage[] $messages An array of ChatMessage objects representing the conversation history.
+     * @param array $options Optional provider-specific parameters.
+     * @return StreamResponse An iterable cursor yielding StreamChunk DTOs.
+     * @throws AIException If the request fails before the stream starts.
+     */
+    public function stream(array $messages, array $options = []): StreamResponse;
 
     /**
      * Set the model to be used for subsequent requests.

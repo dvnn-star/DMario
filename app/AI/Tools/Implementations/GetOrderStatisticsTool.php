@@ -5,7 +5,7 @@ namespace App\AI\Tools\Implementations;
 use App\AI\Contracts\AITool;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 
-class GetWeeklyRevenueTool implements AITool
+class GetOrderStatisticsTool implements AITool
 {
     public function __construct(
         protected OrderRepositoryInterface $repository
@@ -14,29 +14,28 @@ class GetWeeklyRevenueTool implements AITool
 
     public function name(): string
     {
-        return 'get_weekly_revenue';
+        return 'get_order_statistics';
     }
 
     public function description(): string
     {
-        return 'Get the total sales revenue generated over the last 7 days.';
+        return 'Get the total number of orders placed (today, this month, and overall).';
     }
 
     public function inputSchema(): array
     {
         return [
             'type' => 'object',
-            'properties' => [],
+            'properties' => new \stdClass(),
         ];
     }
 
     public function execute(array $parameters): mixed
     {
-        $revenue = $this->repository->getWeeklyRevenue();
-        
         return [
-            'weekly_revenue' => $revenue,
-            'currency' => 'IDR'
+            'orders_today' => $this->repository->getOrderCountToday(),
+            'orders_this_month' => $this->repository->getOrderCountThisMonth(),
+            'total_orders' => $this->repository->getTotalOrderCount(),
         ];
     }
 }
