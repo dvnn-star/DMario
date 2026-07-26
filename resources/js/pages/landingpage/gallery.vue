@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Header from '@/components/landingpage/header.vue';
+import { Head } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 
 interface GalleryItem {
@@ -24,6 +25,7 @@ const filteredItems = computed(() => {
 </script>
 
 <template>
+    <Head title="Galeri" />
     <Header/>
   <section id="gallery" class="py-24 bg-[#0a0a0a] overflow-hidden">
     <div class="max-w-7xl mx-auto px-6">
@@ -71,6 +73,5 @@ const filteredItems = computed(() => {
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 .font-serif { font-family: 'Playfair Display', serif; }
 </style>

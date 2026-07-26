@@ -13,7 +13,7 @@ import { route } from 'ziggy-js';
       <img 
         src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=2070&auto=format&fit=crop" 
         class="w-full h-full object-cover opacity-60"
-        alt="Sunset View"
+        alt="Pemandangan sunset di D'Mario Sunset Resto & Cafe, Tanjung Uban"
       />
     </div>
 

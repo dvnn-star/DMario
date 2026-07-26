@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\order;
+use App\Support\SeoData;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -30,6 +31,10 @@ class OrderStatusController extends Controller
 
         return Inertia::render('MenuQr/OrderStatus', [
             'order' => $order,
+            'seo' => (new SeoData(
+                title: 'Status Pesanan #'.$order->id,
+                robots: 'noindex, nofollow',
+            ))->toArray(),
         ]);
     }
 }

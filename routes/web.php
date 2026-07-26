@@ -3,10 +3,13 @@
 use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\Customer\OrderStatusController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\EnsureTableSelected;
 use Filament\Notifications\Notification as NotificationsNotification;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'index')->name('landingpage');

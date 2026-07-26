@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MenuItem;
 use App\Models\reservation;
 use App\Models\table;
+use App\Support\SeoData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -42,8 +43,16 @@ class LandingPageController extends Controller
                 ];
             });
 
+        $appUrl = rtrim(config('app.url'), '/');
+
         return Inertia::render('landingpage/Welcome', [
             'bestSellers' => $bestSellers,
+            'seo' => (new SeoData(
+                title: "D'Mario Sunset Resto & Cafe — Tanjung Uban",
+                description: "Nikmati pengalaman kuliner terbaik di D'Mario Sunset Resto & Cafe, Tanjung Uban. Pesan menu digital, reservasi meja, dan nikmati sunset yang tak terlupakan.",
+                canonical: $appUrl,
+                ogImage: $appUrl.'/dmario.jpeg',
+            ))->toArray(),
         ]);
     }
 
@@ -54,8 +63,16 @@ class LandingPageController extends Controller
             return MenuItem::with('category')->latest()->get();
         });
 
+        $appUrl = rtrim(config('app.url'), '/');
+
         return Inertia::render('landingpage/menu', [
             'menuItems' => $menuItems,
+            'seo' => (new SeoData(
+                title: "Menu Digital — D'Mario Sunset Resto & Cafe",
+                description: "Jelajahi menu lengkap D'Mario Sunset Resto & Cafe. Dari hidangan khas Indonesia hingga sajian internasional, temukan cita rasa otentik di setiap hidangan.",
+                canonical: $appUrl.'/menu',
+                ogImage: $appUrl.'/dmario.jpeg',
+            ))->toArray(),
         ]);
     }
 
@@ -63,14 +80,31 @@ class LandingPageController extends Controller
     {
         $tables = $table::all();
 
+        $appUrl = rtrim(config('app.url'), '/');
+
         return Inertia::render('landingpage/reservation', [
             'Tables' => $tables,
+            'seo' => (new SeoData(
+                title: "Reservasi Meja — D'Mario Sunset Resto & Cafe",
+                description: "Pesan meja di D'Mario Sunset Resto & Cafe, Tanjung Uban. Pilih lokasi terbaik untuk menikmati senja dan pastikan kenyamanan tamu Anda.",
+                canonical: $appUrl.'/reservation',
+                ogImage: $appUrl.'/dmario.jpeg',
+            ))->toArray(),
         ]);
     }
 
     public function gallery()
     {
-        return Inertia::render('landingpage/gallery');
+        $appUrl = rtrim(config('app.url'), '/');
+
+        return Inertia::render('landingpage/gallery', [
+            'seo' => (new SeoData(
+                title: "Galeri — D'Mario Sunset Resto & Cafe",
+                description: "Lihat suasana dan momen indah di D'Mario Sunset Resto & Cafe. Dari interior elegan hingga pemandangan golden hour yang menakjubkan.",
+                canonical: $appUrl.'/gallery',
+                ogImage: $appUrl.'/foto1.jpeg',
+            ))->toArray(),
+        ]);
     }
 
     public function ShowMenuQr(Request $request, string $identifier)
@@ -97,6 +131,10 @@ class LandingPageController extends Controller
                 'table_number' => $table->table_number,
             ],
             'menuItems' => $menuItems,
+            'seo' => (new SeoData(
+                title: 'Menu — Meja '.$table->table_number,
+                robots: 'noindex, nofollow',
+            ))->toArray(),
         ]);
     }
 
