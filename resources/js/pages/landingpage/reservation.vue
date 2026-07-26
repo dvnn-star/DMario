@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
+import { Head, usePage } from '@inertiajs/vue3';
 import Header from '@/components/landingpage/header.vue';
 import { useForm } from '@inertiajs/vue3';
+import JsonLd from '@/components/JsonLd.vue';
 import AlertDialog from '@/components/ui/alert-dialog/AlertDialog.vue';
 import AlertDialogTrigger from '@/components/ui/alert-dialog/AlertDialogTrigger.vue';
 import AlertDialogContent from '@/components/ui/alert-dialog/AlertDialogContent.vue';
@@ -184,11 +186,24 @@ const selectTable = (table: Tables) => {
     selectedTable.value = table.id;
   }
 };
+
+const appUrl = usePage().props.appUrl as string;
+
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': appUrl },
+    { '@type': 'ListItem', 'position': 2, 'name': 'Reservasi' },
+  ],
+}));
 </script>
 
 <template>
   <AlertDialog>
     <div class="min-h-screen bg-[#0d0d0d] text-white font-sans relative">
+      <Head title="Reservasi Meja" />
+      <JsonLd :schema="breadcrumbSchema" />
       <Header />
 
       <main class="max-w-6xl mx-auto px-6 pt-32 pb-20">
@@ -252,8 +267,9 @@ const selectTable = (table: Tables) => {
 
             <form @submit.prevent class="space-y-6">
               <div>
-                <label class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Nama Lengkap</label>
+                <label for="reservation-name" class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Nama Lengkap</label>
                 <input 
+                  id="reservation-name"
                   v-model="reservationForm.name" 
                   type="text"
                   class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:border-orange-600 focus:ring-0 transition-all outline-none text-white"
@@ -263,8 +279,9 @@ const selectTable = (table: Tables) => {
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Jumlah Tamu</label>
+                  <label for="reservation-guests" class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Jumlah Tamu</label>
                   <input 
+                    id="reservation-guests"
                     v-model="reservationForm.guests" 
                     type="number"
                     class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-orange-600 transition-all text-white" 
@@ -273,8 +290,9 @@ const selectTable = (table: Tables) => {
                 </div>
 
                 <div>
-                  <label class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Tanggal</label>
+                  <label for="reservation-date" class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Tanggal</label>
                   <input 
+                    id="reservation-date"
                     :min="today" 
                     :max="maxDate" 
                     v-model="reservationForm.date" 
@@ -286,8 +304,9 @@ const selectTable = (table: Tables) => {
 
               <!-- Selection Slot Waktu Per Jam -->
               <div>
-                <label class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Waktu Reservasi (Slot 1 Jam)</label>
+                <label for="reservation-time" class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 block">Waktu Reservasi (Slot 1 Jam)</label>
                 <select 
+                  id="reservation-time"
                   v-model="reservationForm.time" 
                   class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none text-white focus:border-orange-600 transition-all cursor-pointer"
                 >

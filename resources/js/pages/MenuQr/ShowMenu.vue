@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, Head } from '@inertiajs/vue3';
 import Header from '@/components/landingpage/header.vue';
 import {
     AlertDialog,
@@ -135,6 +135,7 @@ const scrollToCategory = (id: string) => {
 
 <template>
     <div class="min-h-screen bg-[#050505] text-[#e5e5e5] font-sans antialiased selection:bg-orange-600/30">
+        <Head :title="`Menu — Meja ${props.table.table_number}`" />
         <Header />
 
         <!-- Header Meja -->

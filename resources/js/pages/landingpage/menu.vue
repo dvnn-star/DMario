@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { Head, usePage } from '@inertiajs/vue3';
 import Header from '@/components/landingpage/header.vue';
+import JsonLd from '@/components/JsonLd.vue';
 
 interface MenuItem {
   id: number;
@@ -53,13 +55,26 @@ const scrollNav = (direction: 'left' | 'right') => {
     behavior: 'smooth'
   });
 };
+
+const appUrl = usePage().props.appUrl as string;
+
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': appUrl },
+    { '@type': 'ListItem', 'position': 2, 'name': 'Menu' },
+  ],
+}));
 </script>
 
 <template>
   <div class="min-h-screen bg-[#0d0d0d] text-white font-sans selection:bg-orange-500/30">
+    <Head title="Menu Digital" />
+    <JsonLd :schema="breadcrumbSchema" />
     <Header />
 
-    <header class="pt-40 pb-20 px-6 text-center">
+    <div class="pt-40 pb-20 px-6 text-center">
       <h1 class="text-5xl md:text-7xl font-bold tracking-tight">
         D'MARIO <span class="text-orange-600 italic">MENU.</span>
       </h1>
@@ -67,11 +82,11 @@ const scrollNav = (direction: 'left' | 'right') => {
         Jelajahi cita rasa otentik di bawah langit senja. Pilih hidangan favoritmu untuk melengkapi momen tak
         terlupakan.
       </p>
-    </header>
+    </div>
     <nav class="sticky top-0 z-50 bg-[#0d0d0d]/90 backdrop-blur-xl border-b border-white/5 px-4 group">
       <div class="max-w-6xl mx-auto relative flex items-center">
 
-        <button @click="scrollNav('left')"
+        <button @click="scrollNav('left')" aria-label="Scroll kategori ke kiri"
           class="absolute left-[-50px] z-10 p-2 bg-[#0d0d0d]/80 border border-white/10 rounded-full hover:bg-orange-600 transition-all  group-hover:opacity-100 hidden md:block">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -86,7 +101,7 @@ const scrollNav = (direction: 'left' | 'right') => {
           </button>
         </div>
 
-        <button @click="scrollNav('right')"
+        <button @click="scrollNav('right')" aria-label="Scroll kategori ke kanan"
           class="absolute right-[-50px] z-10 p-2 bg-[#0d0d0d]/80 border border-white/10 rounded-full hover:bg-orange-600 transition-all opacity-0 group-hover:opacity-100 hidden md:block">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -110,7 +125,7 @@ const scrollNav = (direction: 'left' | 'right') => {
             class="group bg-[#121212] rounded-3xl p-6 flex gap-6 hover:bg-[#161616] border border-white/5 transition-all duration-500 shadow-xl"
             :class="{ 'opacity-30 grayscale': !item.is_available }">
             <div class="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0 overflow-hidden rounded-2xl bg-zinc-900">
-              <img v-if="item.image_path" :src="item.image_path"
+              <img v-if="item.image_path" :src="item.image_path" :alt="item.name + ' — D\'Mario Menu'"
                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
               <div v-else
                 class="w-full h-full flex items-center justify-center text-[10px] text-zinc-700 uppercase tracking-widest">
