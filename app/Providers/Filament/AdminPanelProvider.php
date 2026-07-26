@@ -40,7 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([])
             ->renderHook(
                 \Filament\View\PanelsRenderHook::BODY_END,
-                fn (): string => \Illuminate\Support\Facades\Blade::render('@livewire(\'ai-copilot\')'),
+                fn (): string => auth()->check() ? \Illuminate\Support\Facades\Blade::render('@livewire(\'ai-copilot\')') : '',
             )
             ->middleware([
                 EncryptCookies::class,
