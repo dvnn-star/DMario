@@ -39,7 +39,7 @@ class LandingPageController extends Controller
                     // Generates URL lengkap dari storage, atau fallback ke default image
                     'image' => $item->image_path
                         ? Storage::url($item->image_path)
-                        : 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2069',
+                        : ' meat.webp',
                 ];
             });
 
@@ -51,7 +51,7 @@ class LandingPageController extends Controller
                 title: "D'Mario Sunset Resto & Cafe — Tanjung Uban",
                 description: "Nikmati pengalaman kuliner terbaik di D'Mario Sunset Resto & Cafe, Tanjung Uban. Pesan menu digital, reservasi meja, dan nikmati sunset yang tak terlupakan.",
                 canonical: $appUrl,
-                ogImage: $appUrl.'/dmario.jpeg',
+                ogImage: $appUrl.'/dmario.webp',
             ))->toArray(),
         ]);
     }
@@ -71,7 +71,7 @@ class LandingPageController extends Controller
                 title: "Menu Digital — D'Mario Sunset Resto & Cafe",
                 description: "Jelajahi menu lengkap D'Mario Sunset Resto & Cafe. Dari hidangan khas Indonesia hingga sajian internasional, temukan cita rasa otentik di setiap hidangan.",
                 canonical: $appUrl.'/menu',
-                ogImage: $appUrl.'/dmario.jpeg',
+                ogImage: $appUrl.'/dmario.webp',
             ))->toArray(),
         ]);
     }
@@ -88,7 +88,7 @@ class LandingPageController extends Controller
                 title: "Reservasi Meja — D'Mario Sunset Resto & Cafe",
                 description: "Pesan meja di D'Mario Sunset Resto & Cafe, Tanjung Uban. Pilih lokasi terbaik untuk menikmati senja dan pastikan kenyamanan tamu Anda.",
                 canonical: $appUrl.'/reservation',
-                ogImage: $appUrl.'/dmario.jpeg',
+                ogImage: $appUrl.'/dmario.webp',
             ))->toArray(),
         ]);
     }
