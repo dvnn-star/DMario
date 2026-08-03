@@ -12,8 +12,8 @@ interface GalleryItem {
 }
 
 const galleryItems = ref<GalleryItem[]>([
-  { id: 2, title: 'Golden Hour at Deck', category: 'Moment', size: 'standard', image_path: '/foto1.jpeg' },
-  { id: 5, title: 'Main Dining Hall', category: 'Interior', size: 'standard', image_path: '/foto2.jpg' },
+  { id: 2, title: 'Golden Hour at Deck', category: 'Moment', size: 'standard', image_path: '/foto1.webp' },
+  { id: 5, title: 'Main Dining Hall', category: 'Interior', size: 'standard', image_path: '/foto2.webp' },
 ]);
 
 const activeFilter = ref('All');

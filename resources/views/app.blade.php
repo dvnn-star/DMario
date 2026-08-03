@@ -79,7 +79,7 @@
         @if(!empty($seo['ogImage']))
             <meta property="og:image" content="{{ $seo['ogImage'] }}">
         @else
-            <meta property="og:image" content="{{ $appUrl }}/dmario.jpeg">
+            <meta property="og:image" content="{{ $appUrl }}/dmario.webp">
         @endif
 
         {{-- Twitter Card --}}
@@ -97,7 +97,7 @@
         @if(!empty($seo['ogImage']))
             <meta name="twitter:image" content="{{ $seo['ogImage'] }}">
         @else
-            <meta name="twitter:image" content="{{ $appUrl }}/dmario.jpeg">
+            <meta name="twitter:image" content="{{ $appUrl }}/dmario.webp">
         @endif
         {{-- ===== End SEO Meta Tags ===== --}}
 
@@ -105,8 +105,8 @@
         <meta name="theme-color" content="#0a0a0b">
 
         {{-- Favicons --}}
-        <link rel="icon" href="/dmario.jpeg" type="image/jpeg">
-        <link rel="apple-touch-icon" href="/dmario.jpeg">
+        <link rel="icon" href="/dmario.webp" type="image/jpeg">
+        <link rel="apple-touch-icon" href="/dmario.webp">
 
         {{-- Fonts --}}
         <link rel="preconnect" href="https://fonts.bunny.net">

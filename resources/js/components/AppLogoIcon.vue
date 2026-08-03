@@ -17,7 +17,7 @@ defineProps<Props>();
 
 <template>
     <img
-        src="/dmario.jpeg"
+        src="/dmario.webp"
         alt="Logo D'Mario"
         :class="className"
         v-bind="$attrs"

@@ -11,7 +11,7 @@ import { route } from 'ziggy-js';
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0b] via-[#0a0a0b]/80 to-[#0a0a0b]/40 md:via-[#0a0a0b]/60 md:to-transparent z-10"></div>
       <img 
-        src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=2070&auto=format&fit=crop" 
+        src="bg.webp" 
         class="w-full h-full object-cover opacity-60"
         alt="Pemandangan sunset di D'Mario Sunset Resto & Cafe, Tanjung Uban"
       />

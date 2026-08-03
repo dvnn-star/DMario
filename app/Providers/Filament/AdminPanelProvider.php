@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->favicon(asset('dmario.jpeg'))
+            ->favicon(asset('dmario.webp'))
             ->colors([
                 'primary' => Color::Amber,
             ])

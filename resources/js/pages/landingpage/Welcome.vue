@@ -33,7 +33,7 @@ const restaurantSchema = computed(() => ({
       '@type': 'Restaurant',
       '@id': `${appUrl}/#restaurant`,
       'name': "D'Mario Sunset Resto & Cafe",
-      'image': `${appUrl}/dmario.jpeg`,
+      'image': `${appUrl}/dmario.webp`,
       'url': appUrl,
       'telephone': '+6282268822307',
       'servesCuisine': ['Indonesian', 'Western'],

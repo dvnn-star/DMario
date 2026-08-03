@@ -274,7 +274,7 @@
         @if($isOpen)
             <x-heroicon-o-x-mark style="width: 1.5rem; height: 1.5rem; color: white;" />
         @else
-            <img src="{{ asset('dmario.jpeg') }}" alt="AI Copilot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+            <img src="{{ asset('dmario.webp') }}" alt="AI Copilot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
         @endif
     </button>
 
