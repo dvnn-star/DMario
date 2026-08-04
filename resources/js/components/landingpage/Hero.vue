@@ -21,8 +21,6 @@ import { route } from 'ziggy-js';
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-20 w-full">
       <div class="max-w-2xl">
         <Motion
-          :initial="{ opacity: 0, x: -50 }"
-          :animate="{ opacity: 1, x: 0 }"
         >
           <span class="text-orange-500 font-bold tracking-[0.25em] uppercase text-xs sm:text-sm mb-3 sm:mb-4 block">
             The Golden Experience
@@ -38,9 +36,7 @@ import { route } from 'ziggy-js';
         </Motion>
 
         <Motion
-          :initial="{ opacity: 0 }"
-          :animate="{ opacity: 1 }"
-          :transition="{ delay: 0.3 }"
+
         >
           <p class="text-lg sm:text-xl text-zinc-400 leading-relaxed mb-8 sm:mb-12 max-w-lg">
             Satu-satunya tempat di mana rasa bertemu dengan cakrawala. Pesan hidangan favoritmu langsung dari meja, tanpa merusak momen emasmu.
